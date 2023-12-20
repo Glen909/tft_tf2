@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/featurize/work/tft_outputs/saved_models/favorita/fixed/TemporalFusionTransformer.ckpt"
+all_model_checkpoint_paths: "/home/featurize/work/tft_outputs/saved_models/favorita/fixed/TemporalFusionTransformer.ckpt"

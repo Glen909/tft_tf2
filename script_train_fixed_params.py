@@ -75,6 +75,7 @@ def main(expt_name,
             "AbstractDataFormatter! Type={}".format(type(data_formatter)))
 
     # Tensorflow setup
+    print("Tensorflow setup...")
     default_keras_session = tf.keras.backend.get_session()
 
     if use_gpu:

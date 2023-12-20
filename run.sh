@@ -20,7 +20,7 @@
 # Modifiable experiment options.
 # Expt options include {volatility, electricity, traffic, favorita}
 EXPT=favorita
-OUTPUT_FOLDER=~/tft_outputs  # Path to store data & experiment outputs
+OUTPUT_FOLDER=~/work/tft_outputs  # Path to store data & experiment outputs
 USE_GPU=yes
 TESTING_MODE=no  # If yes, trains a small model with little data to test script
 
@@ -35,6 +35,8 @@ set -e
 # pip3 install virtualenv # Assumes pip3 is installed!
 # python3 -m virtualenv $OUTPUT_FOLDER/venv
 # source $OUTPUT_FOLDER/venv/bin/activate
+# nohup sh run.sh > log/run.log 2>&1 &
+# tail -f log/run.log
 pip3 install --pre "tensorflow==2.2.*"
 pip3 install -r requirements.txt
 
