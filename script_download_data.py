@@ -79,6 +79,19 @@ def unzip(zip_path, output_file, data_folder):
     raise ValueError(
         'Error in unzipping process! {} not found.'.format(output_file))
 
+def un7z(zip_path, output_file, data_folder):
+  """Unzips files and checks successful completion."""
+
+  
+  shutil.unpack_archive(zip_path, data_folder)
+
+  # print('Un7zzipping file: {}'.format(zip_path))
+  # pyunpack.Archive(zip_path).extractall(data_folder)
+
+  # Checks if unzip was successful
+  if not os.path.exists(output_file):
+    raise ValueError(
+        'Error in unzipping process! {} not found.'.format(output_file))
 
 def download_and_unzip(url, zip_path, csv_path, data_folder):
   """Downloads and unzips an online csv file.
@@ -509,8 +522,15 @@ def process_favorita(config):
   print('Adding oil')
   oil.name = 'oil'
   oil.index = pd.to_datetime(oil.index)
+  # --------------------
+  index_ = []
+  for item_ in dates:
+      if item_ in oil.index:
+          index_.append(item_)
+  dates_ = pd.arrays.DatetimeArray(pd.DatetimeIndex(index_))
+  # --------------------
   temporal = temporal.join(
-      oil.loc[dates].fillna(method='ffill'), on='date', how='left')
+      oil.loc[dates_].fillna(method='ffill'), on='date', how='left')
   temporal['oil'] = temporal['oil'].fillna(-1)
 
   print('Adding store info')
@@ -644,4 +664,5 @@ if __name__ == '__main__':
     return args.expt_name, args.force_download == 'yes', root_folder
 
   name, force, folder = get_args()
+  shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
   main(expt_name=name, force_download=force, output_folder=folder)

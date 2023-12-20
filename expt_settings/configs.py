@@ -63,7 +63,7 @@ class ExperimentConfig(object):
 
     self.root_folder = root_folder
     self.experiment = experiment
-    self.data_folder = os.path.join(root_folder, 'data', experiment)
+    self.data_folder = os.path.join('/home/featurize', 'data', experiment)
     self.model_folder = os.path.join(root_folder, 'saved_models', experiment)
     self.results_folder = os.path.join(root_folder, 'results', experiment)
 
