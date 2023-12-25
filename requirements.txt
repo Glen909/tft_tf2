@@ -10,3 +10,4 @@ patool>=1.12
 py7zr
 protobuf==3.20.1
 tensorflow-gpu==2.5.0
+wikipedia==1.4.0

@@ -1,0 +1,28 @@
+train.csv
+    date,store_nbr,item_nbr,id
+    unit_sales(int or float and negative value is returns)
+    onpromotion means that it was on promotion for a specified date and store_nbr, but a lot of promotion are NAN.
+
+test.csv
+    date, store_nbr, item_nbr, onpromotion
+
+sample_submission.csv
+    its just sample for submission
+
+stores.csv
+    store_nbr, city, state, type and cluster
+
+items.csv
+    item_nbr, family, class, and perishable(easy to become bad)
+
+transactions.csv
+    the count of sales transactions for each date, store_nbr
+    date, store_id, the count of transactions
+
+oil.csv
+    daily oil price
+
+holidays_events.csv
+    date, type, description
+    
+
