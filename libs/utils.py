@@ -145,13 +145,37 @@ def get_default_tensorflow_config(tf_device='gpu', gpu_id=0):
         log_device_placement=False, device_count={'GPU': 0})
 
   else:
-    os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-    os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
+    # os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+    # os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
 
-    print('Selecting GPU ID={}'.format(gpu_id))
+    # print('Selecting GPU ID={}'.format(gpu_id))
 
-    tf_config = tf.compat.v1.ConfigProto(log_device_placement=False)
-    tf_config.gpu_options.allow_growth = True
+    # tf_config = tf.compat.v1.ConfigProto(log_device_placement=False)
+    # tf_config.gpu_options.allow_growth = True
+    import tensorflow as tf
+
+    # 获取可用的 GPU 设备列表
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+
+    if gpus:
+        # 仅在有 GPU 设备的情况下进行设置
+        try:
+            # 设置 GPU 显存按需分配
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+
+            # 使用所有 GPU 设备
+            tf.config.experimental.set_visible_devices(gpus, 'GPU')
+
+            # 设置 GPU 设备按需使用
+            tf_config = tf.compat.v1.ConfigProto(allow_soft_placement=True)
+            tf_config.gpu_options.allow_growth = True
+
+        except RuntimeError as e:
+            print(e)
+    else:
+        print("No GPU devices found")
+
 
   return tf_config
 
