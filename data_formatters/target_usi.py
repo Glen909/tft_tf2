@@ -300,14 +300,7 @@ class TargetUsiFormatter(data_formatters.base.GenericDataFormatter):
     ]
 
     col_definition_map = {tup[0]: tup for tup in column_definition}
-    col_order = [
-        "tpep_pickup_datetime","tpep_dropoff_datetime","passenger_count",
-        "trip_distance","PULocationID","DOLocationID","fare_amount","extra",
-        "mta_tax","total_amount","congestion_surcharge","drop_hms_date",
-        "holiday_is_True","TreeCover","temp","humidity","windspeed",
-        "visibility","solarradiation","day_of_week","day_of_month","month",
-        "traj_id","unique_id"
-    ]
+    col_order = ["holiday_is_True", "day_of_week"]
     categorical_inputs = [
         col_definition_map[k] for k in col_order if k in col_definition_map
     ]
