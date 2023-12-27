@@ -26,6 +26,7 @@ import data_formatters.electricity
 import data_formatters.favorita
 import data_formatters.traffic
 import data_formatters.volatility
+import data_formatters.target_usi
 
 
 class ExperimentConfig(object):

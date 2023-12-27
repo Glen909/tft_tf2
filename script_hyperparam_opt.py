@@ -61,7 +61,7 @@ def main(expt_name, use_gpu, restart_opt, model_folder, hyperparam_iterations,
   default_keras_session = tf.compat.v1.keras.backend.get_session()
 
   if use_gpu:
-    tf_config = utils.get_default_tensorflow_config(tf_device="gpu")
+    tf_config = utils.get_default_tensorflow_config(tf_device="gpu", gpu_id=0)
 
   else:
     tf_config = utils.get_default_tensorflow_config(tf_device="cpu")

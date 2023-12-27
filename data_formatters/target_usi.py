@@ -8,6 +8,7 @@ import data_formatters.base
 import libs.utils as utils
 import pandas as pd
 import sklearn.preprocessing
+import datetime
 
 DataTypes = data_formatters.base.DataTypes
 InputTypes = data_formatters.base.InputTypes
@@ -73,8 +74,7 @@ class TargetUsiFormatter(data_formatters.base.GenericDataFormatter):
     print('Formatting train-valid-test splits.')
 
     if valid_boundary is None:
-      valid_boundary = pd.datetime(2019, 12, 1)
-
+      valid_boundary = datetime.datetime(2019, 4, 1)
     fixed_params = self.get_fixed_params()
     time_steps = fixed_params['total_time_steps']
     lookback = fixed_params['num_encoder_steps']
@@ -142,7 +142,7 @@ class TargetUsiFormatter(data_formatters.base.GenericDataFormatter):
 
       # Format real scalers
       self._real_scalers = {}
-      for col in ['oil', 'transactions', 'log_sales']:
+      for col in ["DOLocationID", "passenger_count", "trip_distance", "PULocationID", "fare_amount", "extra", "mta_tax", "total_amount", "congestion_surcharge", "TreeCover", "temp", "humidity", "windspeed", "visibility", "solarradiation", "day_of_month", "month"]:
         self._real_scalers[col] = (df[col].mean(), df[col].std())
 
       self._target_scaler = (df[target_column].mean(), df[target_column].std())
@@ -199,9 +199,6 @@ class TargetUsiFormatter(data_formatters.base.GenericDataFormatter):
       mean, std = self._real_scalers[col]
       output[col] = (df[col] - mean) / std
 
-      if col == 'log_sales':
-        output[col] = output[col].fillna(0.)  # mean imputation
-
     # Format categorical inputs
     for col in categorical_inputs:
       string_df = df[col].apply(str)
@@ -233,8 +230,8 @@ class TargetUsiFormatter(data_formatters.base.GenericDataFormatter):
     """Returns fixed model parameters for experiments."""
 
     fixed_params = {
-        'total_time_steps': 120,
-        'num_encoder_steps': 90,
+        'total_time_steps': 60,
+        'num_encoder_steps': 45,
         'num_epochs': 100,
         'early_stopping_patience': 5,
         'multiprocessing_workers': 5
